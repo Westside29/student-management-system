@@ -113,10 +113,13 @@ function App() {
   const validateForm = () => {
     const newErrors = {};
     const ageNumber = Number(formData.age);
-    const emailPattern = /^[^\s@]+\.[^\s@]+$/;
+
+    // Correct email validation pattern.
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formData.fullName.trim()) {
-      newErrors.fullName = "Please enter the student's full name.";
+      newErrors.fullName =
+        "Please enter the student's full name.";
     }
 
     if (!formData.age.trim()) {
@@ -126,21 +129,27 @@ function App() {
       ageNumber < 1 ||
       ageNumber > 120
     ) {
-      newErrors.age = "Age must be a whole number between 1 and 120.";
+      newErrors.age =
+        "Age must be a whole number between 1 and 120.";
     }
 
     if (!formData.email.trim()) {
       newErrors.email = "Please enter an email address.";
-    } else if (!emailPattern.test(formData.email.trim())) {
-      newErrors.email = "Please enter a valid email address.";
+    } else if (
+      !emailPattern.test(formData.email.trim())
+    ) {
+      newErrors.email =
+        "Please enter a valid email address.";
     }
 
     if (!formData.course.trim()) {
-      newErrors.course = "Please enter the course of study.";
+      newErrors.course =
+        "Please enter the course of study.";
     }
 
     if (!["Enrolled", "Pending"].includes(formData.status)) {
-      newErrors.status = "Please select a valid enrollment status.";
+      newErrors.status =
+        "Please select a valid enrollment status.";
     }
 
     setErrors(newErrors);
@@ -252,10 +261,12 @@ function App() {
             <p>Total Students</p>
             <h2>{students.length}</h2>
           </div>
+
           <div className="stat-card">
             <p>Enrolled Students</p>
             <h2>{enrolledCount}</h2>
           </div>
+
           <div className="stat-card">
             <p>Pending Students</p>
             <h2>{pendingCount}</h2>
@@ -269,7 +280,10 @@ function App() {
               <p>View and manage registered students.</p>
             </div>
 
-            <button className="primary-button" onClick={openAddModal}>
+            <button
+              className="primary-button"
+              onClick={openAddModal}
+            >
               + Add Student
             </button>
           </div>
@@ -300,10 +314,13 @@ function App() {
                 {filteredStudents.map((student) => (
                   <tr key={student.id}>
                     <td>{student.id}</td>
-                    <td className="student-name">{student.fullName}</td>
+                    <td className="student-name">
+                      {student.fullName}
+                    </td>
                     <td>{student.age}</td>
                     <td>{student.email}</td>
                     <td>{student.course}</td>
+
                     <td>
                       <span
                         className={
@@ -315,6 +332,7 @@ function App() {
                         {student.status}
                       </span>
                     </td>
+
                     <td>
                       <div className="action-buttons">
                         <button
@@ -323,6 +341,7 @@ function App() {
                         >
                           Edit
                         </button>
+
                         <button
                           className="delete-button"
                           onClick={() => setDeleteStudent(student)}
@@ -359,7 +378,9 @@ function App() {
             <div className="modal-header">
               <div>
                 <h2 id="student-modal-title">
-                  {modalType === "add" ? "Add Student" : "Edit Student"}
+                  {modalType === "add"
+                    ? "Add Student"
+                    : "Edit Student"}
                 </h2>
                 <p>Enter the student's information below.</p>
               </div>
@@ -392,8 +413,11 @@ function App() {
                   placeholder="Enter full name"
                   aria-invalid={Boolean(errors.fullName)}
                 />
+
                 {errors.fullName && (
-                  <p className="error-message">{errors.fullName}</p>
+                  <p className="error-message">
+                    {errors.fullName}
+                  </p>
                 )}
               </div>
 
@@ -411,8 +435,11 @@ function App() {
                   placeholder="Enter age"
                   aria-invalid={Boolean(errors.age)}
                 />
+
                 {errors.age && (
-                  <p className="error-message">{errors.age}</p>
+                  <p className="error-message">
+                    {errors.age}
+                  </p>
                 )}
               </div>
 
@@ -427,8 +454,11 @@ function App() {
                   placeholder="student@example.com"
                   aria-invalid={Boolean(errors.email)}
                 />
+
                 {errors.email && (
-                  <p className="error-message">{errors.email}</p>
+                  <p className="error-message">
+                    {errors.email}
+                  </p>
                 )}
               </div>
 
@@ -442,13 +472,19 @@ function App() {
                   placeholder="Enter course"
                   aria-invalid={Boolean(errors.course)}
                 />
+
                 {errors.course && (
-                  <p className="error-message">{errors.course}</p>
+                  <p className="error-message">
+                    {errors.course}
+                  </p>
                 )}
               </div>
 
               <div className="form-group">
-                <label htmlFor="status">Enrollment Status</label>
+                <label htmlFor="status">
+                  Enrollment Status
+                </label>
+
                 <select
                   id="status"
                   name="status"
@@ -459,8 +495,11 @@ function App() {
                   <option value="Enrolled">Enrolled</option>
                   <option value="Pending">Pending</option>
                 </select>
+
                 {errors.status && (
-                  <p className="error-message">{errors.status}</p>
+                  <p className="error-message">
+                    {errors.status}
+                  </p>
                 )}
               </div>
 
@@ -472,8 +511,14 @@ function App() {
                 >
                   Cancel
                 </button>
-                <button className="primary-button" type="submit">
-                  {modalType === "add" ? "Add Student" : "Save Changes"}
+
+                <button
+                  className="primary-button"
+                  type="submit"
+                >
+                  {modalType === "add"
+                    ? "Add Student"
+                    : "Save Changes"}
                 </button>
               </div>
             </form>
@@ -491,10 +536,11 @@ function App() {
             aria-labelledby="delete-modal-title"
           >
             <h2 id="delete-modal-title">Delete Student?</h2>
+
             <p>
               Are you sure you want to delete{" "}
-              <strong>{deleteStudent.fullName}</strong>? This action cannot
-              be undone.
+              <strong>{deleteStudent.fullName}</strong>? This
+              action cannot be undone.
             </p>
 
             <div className="modal-actions">
@@ -504,7 +550,11 @@ function App() {
               >
                 Cancel
               </button>
-              <button className="delete-button" onClick={confirmDelete}>
+
+              <button
+                className="delete-button"
+                onClick={confirmDelete}
+              >
                 Yes, Delete
               </button>
             </div>

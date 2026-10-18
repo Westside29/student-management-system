@@ -70,5 +70,4 @@ The generated production files will be placed in the `dist` folder.
 This project was developed as part of the DIWA2110 Web Application Development assignment. It demonstrates the use of React components, JavaScript, state management, form validation, and browser storage.
 
 ## 9. Author
-
-DIWA2110 Web Application Development Student
+901017610 Katleho Nthakong
